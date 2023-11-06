@@ -1,0 +1,58 @@
+{
+    "taskDefinitionArn": "arn:aws:ecs:ap-east-1:392555669483:task-definition/ecs-task-family",
+    "containerDefinitions": [
+        {
+            "name": "simple-website",
+            "image": "392555669483.dkr.ecr.ap-east-1.amazonaws.com/james-repo:latest",
+            "cpu": 256,
+            "memory": 512,
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "mountPoints": [],
+            "volumesFrom": []
+        }
+    ],
+    "family": "ecs-task-family",
+    "taskRoleArn": "arn:aws:iam::392555669483:role/ecs-execution-role",
+    "executionRoleArn": "arn:aws:iam::392555669483:role/ecs-execution-role",
+    "networkMode": "awsvpc",
+    "volumes": [],
+    "status": "ACTIVE",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        },
+        {
+            "name": "ecs.capability.task-eni"
+        }
+    ],
+    "placementConstraints": [],
+    "compatibilities": [
+        "EC2",
+        "FARGATE"
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "256",
+    "memory": "512",
+    "registeredAt": "2023-11-06T09:54:16.545Z",
+    "registeredBy": "arn:aws:iam::392555669483:user/jamese_iam",
+    "tags": []
+}
