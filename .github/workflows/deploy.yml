@@ -2,7 +2,7 @@ name: Deploy to Amazon ECS
 on:
   push:
     branches:
-      - master
+      - main
 env:
   AWS_REGION: ap-east-1
   ECS_CLUSTER: my-ecs-cluster
