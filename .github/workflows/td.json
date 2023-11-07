@@ -52,7 +52,7 @@
     ],
     "cpu": "256",
     "memory": "512",
-    "registeredAt": "2023-11-07T08:17:28.522Z",
+    "registeredAt": "2023-11-07T08:31:26.236Z",
     "registeredBy": "arn:aws:iam::392555669483:user/jamese_iam",
     "tags": []
 }
