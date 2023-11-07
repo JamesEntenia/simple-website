@@ -3,7 +3,7 @@
     "containerDefinitions": [
         {
             "name": "simple-website",
-            "image": "392555669483.dkr.ecr.ap-east-1.amazonaws.com/james-repo:latest",
+            "image": "392555669483.dkr.ecr.ap-east-1.amazonaws.com/james-repo",
             "cpu": 256,
             "memory": 512,
             "portMappings": [
@@ -52,7 +52,7 @@
     ],
     "cpu": "256",
     "memory": "512",
-    "registeredAt": "2023-11-07T07:33:57.993Z",
+    "registeredAt": "2023-11-07T08:17:28.522Z",
     "registeredBy": "arn:aws:iam::392555669483:user/jamese_iam",
     "tags": []
 }
