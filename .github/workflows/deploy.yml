@@ -35,9 +35,19 @@ jobs:
       - name: Push Docker Image
         run: docker push jamesentenia/simple-website-docker-image:latest
 
-      - name: Deploy to ECS
-        run: |
-          # Update the ECS Service to use the Task Definition from the file
-          aws ecs update-service --cluster james-ecs-cluster --service ecs-service \
-            --task-definition file://.github/workflows/td.json
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def-1
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ env.ECS_TD }}
+          container-name: ${{ env.CONTAINER_NAME }}
+          image: jamesentenia/simple-website-docker-image:latest
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def-1.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: false
+
 
