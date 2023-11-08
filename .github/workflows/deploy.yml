@@ -5,7 +5,7 @@ on:
     branches:
       - main
 env:
-  AWS_REGION: ap-east-1
+  AWS_REGION: ap-northeast-1
   ECS_CLUSTER: james-ecs-cluster
   CONTAINER_NAME: simple-website
   ECS_SERVICE: ecs-service
