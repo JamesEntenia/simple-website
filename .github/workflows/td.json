@@ -1,9 +1,9 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-east-1:392555669483:task-definition/ecs-task-family",
+    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-1:656070376635:task-definition/james-ecs-task-family:1",
     "containerDefinitions": [
         {
             "name": "simple-website",
-            "image": "392555669483.dkr.ecr.ap-east-1.amazonaws.com/james-repo",
+            "image": "jamesentenia/simple-website-docker-image:latest",
             "cpu": 256,
             "memory": 512,
             "portMappings": [
@@ -19,21 +19,16 @@
             "volumesFrom": []
         }
     ],
-    "family": "ecs-task-family",
-    "taskRoleArn": "arn:aws:iam::392555669483:role/ecs-execution-role",
-    "executionRoleArn": "arn:aws:iam::392555669483:role/ecs-execution-role",
+    "family": "james-ecs-task-family",
+    "taskRoleArn": "arn:aws:iam::656070376635:role/ecs-execution-role",
+    "executionRoleArn": "arn:aws:iam::656070376635:role/ecs-execution-role",
     "networkMode": "awsvpc",
+    "revision": 1,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
         {
-            "name": "com.amazonaws.ecs.capability.ecr-auth"
-        },
-        {
             "name": "com.amazonaws.ecs.capability.task-iam-role"
-        },
-        {
-            "name": "ecs.capability.execution-role-ecr-pull"
         },
         {
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
@@ -52,7 +47,7 @@
     ],
     "cpu": "256",
     "memory": "512",
-    "registeredAt": "2023-11-07T08:31:26.236Z",
-    "registeredBy": "arn:aws:iam::392555669483:user/jamese_iam",
+    "registeredAt": "2023-11-07T22:36:26.071Z",
+    "registeredBy": "arn:aws:iam::656070376635:user/james-iam",
     "tags": []
 }
