@@ -1,5 +1,4 @@
-name: Deploy to ECS
-
+name: Deploy to Amazon ECS
 on:
   push:
     branches:
@@ -13,11 +12,12 @@ env:
 
 jobs:
   deploy:
+    name: Deploy
     runs-on: ubuntu-latest
-
+    environment: dev
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -26,14 +26,20 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
           aws-region: ${{ env.AWS_REGION }} 
 
-      - name: Login to Docker Hub
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Build Docker Image
-        run: docker build -t jamesentenia/simple-website-docker-image:latest .
-
-      - name: Push Docker Image
-        run: docker push jamesentenia/simple-website-docker-image:latest
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: "392555669483.dkr.ecr.ap-east-1.amazonaws.com"
+          ECR_REPOSITORY: "james-repo"
+          IMAGE_TAG: latest
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def-1
@@ -41,7 +47,8 @@ jobs:
         with:
           task-definition: ${{ env.ECS_TD }}
           container-name: ${{ env.CONTAINER_NAME }}
-          image: jamesentenia/simple-website-docker-image:latest
+          image: ${{ steps.build-image.outputs.image }}
+
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
@@ -49,5 +56,3 @@ jobs:
           service: ${{ env.ECS_SERVICE }}
           cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: false
-
-
