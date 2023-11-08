@@ -1,41 +1,30 @@
-name: Deploy to Amazon ECS
+name: Deploy to ECS
+
 on:
   push:
     branches:
       - main
-env:
-  AWS_REGION: ap-east-1
-  ECS_CLUSTER: my-ecs-cluster
-  CONTAINER_NAME: simple-website
-  ECS_SERVICE: ecs-service
-  ECS_TD: .github/workflows/td.json
 
 jobs:
   deploy:
-    name: Deploy
     runs-on: ubuntu-latest
-    environment: dev
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
-          aws-region: ${{ env.AWS_REGION }} 
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+      - name: Build Docker Image
+        run: docker build -t jamesentenia/simple-website-docker-image:latest .
 
-      - name: Build, tag, and push image to Amazon ECR
-        id: build-image
-        env:
-          ECR_REGISTRY: "392555669483.dkr.ecr.ap-east-1.amazonaws.com"
-          ECR_REPOSITORY: "james-repo"
-          IMAGE_TAG: latest
+      - name: Push Docker Image
+        run: docker push jamesentenia/simple-website-docker-image:latest
+
+      - name: Deploy to ECS
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          # Update the ECS Service to use the Task Definition from the file
+          aws ecs update-service --cluster james-ecs-cluster --service ecs-service \
+            --task-definition file://.github/workflows/td.json
+
