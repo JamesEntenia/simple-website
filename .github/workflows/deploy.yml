@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - main
+env:
+  AWS_REGION: ap-east-1
+  ECS_CLUSTER: james-ecs-cluster
+  CONTAINER_NAME: simple-website
+  ECS_SERVICE: ecs-service
+  ECS_TD: .github/workflows/td.json
 
 jobs:
   deploy:
@@ -12,6 +18,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
+          aws-region: ${{ env.AWS_REGION }} 
 
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
