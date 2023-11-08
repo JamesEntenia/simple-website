@@ -1,5 +1,5 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-1:656070376635:task-definition/james-ecs-task-family:1",
+    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-1:656070376635:task-definition/james-ecs-task-family",
     "containerDefinitions": [
         {
             "name": "simple-website",
@@ -23,7 +23,6 @@
     "taskRoleArn": "arn:aws:iam::656070376635:role/ecs-execution-role",
     "executionRoleArn": "arn:aws:iam::656070376635:role/ecs-execution-role",
     "networkMode": "awsvpc",
-    "revision": 1,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
