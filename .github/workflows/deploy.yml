@@ -18,6 +18,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Install NVM and Node.js
+        run: |
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+          . ~/.nvm/nvm.sh
+          nvm install --lts
+
+      - name: Install Node.js Dependencies
+        run: npm install express mysql2
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
