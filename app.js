@@ -130,7 +130,7 @@ app.get('/', (req, res) => {
           </style>
         </head>
         <body>
-          <h1>Insert data to Database</h1>
+          <h1>Insert data to database</h1>
           <form action="/insert" method="post">
             <label for="inputData">Enter Data:</label>
             <input type="text" id="inputData" name="inputData" required>
