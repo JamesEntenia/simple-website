@@ -35,7 +35,7 @@ jobs:
         env:
           ECR_REGISTRY: "656070376635.dkr.ecr.ap-northeast-1.amazonaws.com"
           ECR_REPOSITORY: "james-repo"
-          IMAGE_TAG: ""
+          IMAGE_TAG: latest
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
