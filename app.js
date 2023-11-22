@@ -76,7 +76,7 @@ app.get('/', (req, res) => {
     res.send(`
       <html>
         <head>
-          <title>Sample Form</title>
+          <title>Insert and Display from RDS</title>
           <style>
             body {
               font-family: 'Arial', sans-serif;
@@ -130,7 +130,7 @@ app.get('/', (req, res) => {
           </style>
         </head>
         <body>
-          <h1>Sample Form</h1>
+          <h1>Enter your name here</h1>
           <form action="/insert" method="post">
             <label for="inputData">Enter Data:</label>
             <input type="text" id="inputData" name="inputData" required>
