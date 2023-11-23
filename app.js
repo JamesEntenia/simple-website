@@ -143,7 +143,6 @@ app.get('/', (req, res) => {
   });
 
 app.post('/insert', (req, res) => {
-  this.createTableIfNotExists();
   const data = req.body;
 
   dbManager.insertData(data, (err, results) => {
