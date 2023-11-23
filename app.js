@@ -10,7 +10,7 @@ class DatabaseManager {
       host: 'james-website-db.c7vt56houjof.ap-northeast-1.rds.amazonaws.com',
       user: 'user_db',
       password: 'training',
-      database: 'mysql',
+      database: 'website_db',
     });
 
     this.connection.connect((err) => {
