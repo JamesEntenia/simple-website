@@ -63,7 +63,42 @@ class DatabaseManager {
   }
 
   insertData(data, callback) {
-    this.createDatabaseIfNotExists();
+    
+    
+    const createDatabaseQuery = 'CREATE DATABASE IF NOT EXISTS website_db';
+
+    this.connection.query(createDatabaseQuery, (err) => {
+      if (err) {
+        console.error('Error creating database: ', err);
+        return;
+      }
+      console.log('Database created or already exists');
+      this.connection.changeUser({ database: 'website_db' }, (changeUserErr) => {
+        if (changeUserErr) {
+          console.error('Error changing database: ', changeUserErr);
+          return;
+        }
+        console.log('Connected to the "website_db" database');
+        const createTableQuery = `
+        CREATE TABLE IF NOT EXISTS your_table (
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          inputData VARCHAR(255) NOT NULL
+        );
+      `;
+  
+      this.connection.query(createTableQuery, (err, results) => {
+        if (err) {
+          console.error('Error creating table: ', err);
+          return;
+        }
+        console.log('Table created or already exists');
+
+
+      });
+      });
+    });
+
+
     const insertQuery = 'INSERT INTO your_table SET ?';
     this.connection.query(insertQuery, data, (err, results) => {
       if (err) {
