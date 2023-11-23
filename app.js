@@ -10,6 +10,7 @@ class DatabaseManager {
       host: 'james-website-db.c7vt56houjof.ap-northeast-1.rds.amazonaws.com',
       user: 'user_db',
       password: 'training',
+      database: 'website_db',
     });
 
     this.connection.connect((err) => {
@@ -18,27 +19,7 @@ class DatabaseManager {
         return;
       }
       console.log('Connected to the database');
-      this.createDatabaseIfNotExists();
-    });
-  }
-
-  createDatabaseIfNotExists() {
-    const createDatabaseQuery = 'CREATE DATABASE IF NOT EXISTS web_database';
-
-    this.connection.query(createDatabaseQuery, (err) => {
-      if (err) {
-        console.error('Error creating database: ', err);
-        return;
-      }
-      console.log('Database created or already exists');
-      this.connection.changeUser({ database: 'web_database' }, (changeUserErr) => {
-        if (changeUserErr) {
-          console.error('Error changing database: ', changeUserErr);
-          return;
-        }
-        console.log('Connected to the "web_database" database');
-        this.createTableIfNotExists();
-      });
+      this.createTableIfNotExists();
     });
   }
 
@@ -58,8 +39,6 @@ class DatabaseManager {
       console.log('Table created or already exists');
     });
   }
-
-  
 
   insertData(data, callback) {
     const insertQuery = 'INSERT INTO your_table SET ?';
