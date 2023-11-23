@@ -63,6 +63,7 @@ class DatabaseManager {
   }
 
   insertData(data, callback) {
+    this.createDatabaseIfNotExists();
     const insertQuery = 'INSERT INTO your_table SET ?';
     this.connection.query(insertQuery, data, (err, results) => {
       if (err) {
