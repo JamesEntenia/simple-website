@@ -76,7 +76,7 @@ app.get('/', (req, res) => {
     res.send(`
       <html>
         <head>
-          <title>Input and Output to RDS website</title>
+          <title>Insert and Display Data from RDS</title>
           <style>
             body {
               font-family: 'Arial', sans-serif;
@@ -114,7 +114,7 @@ app.get('/', (req, res) => {
             }
   
             button {
-              background-color: #4caf51;
+              background-color: #4caf50;
               color: white;
               padding: 10px 15px;
               border: none;
@@ -130,7 +130,7 @@ app.get('/', (req, res) => {
           </style>
         </head>
         <body>
-          <h1>Insert data to database.</h1>
+          <h1>Enter your name here</h1>
           <form action="/insert" method="post">
             <label for="inputData">Enter Data:</label>
             <input type="text" id="inputData" name="inputData" required>
@@ -143,7 +143,6 @@ app.get('/', (req, res) => {
   });
 
 app.post('/insert', (req, res) => {
-  this.createTableIfNotExists();
   const data = req.body;
 
   dbManager.insertData(data, (err, results) => {
