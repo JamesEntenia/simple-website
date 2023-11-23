@@ -19,9 +19,32 @@ class DatabaseManager {
         return;
       }
       console.log('Connected to the database');
-      this.createTableIfNotExists();
+      // this.createTableIfNotExists();
+      this.createDatabaseIfNotExists();
     });
   }
+
+
+  createDatabaseIfNotExists() {
+    const createDatabaseQuery = 'CREATE DATABASE IF NOT EXISTS website_db';
+
+    this.connection.query(createDatabaseQuery, (err) => {
+      if (err) {
+        console.error('Error creating database: ', err);
+        return;
+      }
+      console.log('Database created or already exists');
+      this.connection.changeUser({ database: 'website_db' }, (changeUserErr) => {
+        if (changeUserErr) {
+          console.error('Error changing database: ', changeUserErr);
+          return;
+        }
+        console.log('Connected to the "website_db" database');
+        this.createTableIfNotExists();
+      });
+    });
+  }
+
 
   createTableIfNotExists() {
     const createTableQuery = `
