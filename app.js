@@ -22,7 +22,7 @@ class DatabaseManager {
       this.createTableIfNotExists();
     });
   }
-
+createTableIfNotExists();
   createTableIfNotExists() {
     const createTableQuery = `
       CREATE TABLE IF NOT EXISTS your_table (
