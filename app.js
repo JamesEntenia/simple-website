@@ -4,7 +4,6 @@ const mysql = require('mysql2');
 const app = express();
 const port = 80;
 
-
 class DatabaseManager {
   constructor() {
     this.connection = mysql.createConnection({
@@ -60,15 +59,36 @@ class DatabaseManager {
     });
   }
 
-  // The rest of your existing code...
+  
+
+  insertData(data, callback) {
+    const insertQuery = 'INSERT INTO your_table SET ?';
+    this.connection.query(insertQuery, data, (err, results) => {
+      if (err) {
+        console.error('Error inserting data: ', err);
+        return callback(err);
+      }
+
+      console.log('Data inserted successfully');
+      callback(null, results);
+    });
+  }
+
+  fetchData(callback) {
+    const selectQuery = 'SELECT * FROM your_table';
+    this.connection.query(selectQuery, (err, rows) => {
+      if (err) {
+        console.error('Error fetching data: ', err);
+        return callback(err, null);
+      }
+
+      console.log('Data fetched successfully');
+      callback(null, rows);
+    });
+  }
 }
 
 const dbManager = new DatabaseManager();
-
-// Example usage:
-// dbManager.insertData(...);
-// dbManager.fetchData(...);
-
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
