@@ -24,7 +24,7 @@ class DatabaseManager {
   }
 
   createDatabaseIfNotExists() {
-    const createDatabaseQuery = 'CREATE DATABASE IF NOT EXISTS website_db';
+    const createDatabaseQuery = 'CREATE DATABASE IF NOT EXISTS web_database';
 
     this.connection.query(createDatabaseQuery, (err) => {
       if (err) {
@@ -32,12 +32,12 @@ class DatabaseManager {
         return;
       }
       console.log('Database created or already exists');
-      this.connection.changeUser({ database: 'website_db' }, (changeUserErr) => {
+      this.connection.changeUser({ database: 'web_database' }, (changeUserErr) => {
         if (changeUserErr) {
           console.error('Error changing database: ', changeUserErr);
           return;
         }
-        console.log('Connected to the "website_db" database');
+        console.log('Connected to the "web_database" database');
         this.createTableIfNotExists();
       });
     });
