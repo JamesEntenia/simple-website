@@ -76,7 +76,7 @@ app.get('/', (req, res) => {
     res.send(`
       <html>
         <head>
-          <title>Insert and Display from RDS</title>
+          <title>Hello Team</title>
           <style>
             body {
               font-family: 'Arial', sans-serif;
