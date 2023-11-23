@@ -22,7 +22,7 @@ class DatabaseManager {
       this.createTableIfNotExists();
     });
   }
-createTableIfNotExists();
+
   createTableIfNotExists() {
     const createTableQuery = `
       CREATE TABLE IF NOT EXISTS your_table (
@@ -143,6 +143,7 @@ app.get('/', (req, res) => {
   });
 
 app.post('/insert', (req, res) => {
+  this.createTableIfNotExists();
   const data = req.body;
 
   dbManager.insertData(data, (err, results) => {
