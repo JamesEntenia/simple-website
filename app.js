@@ -59,7 +59,7 @@ class DatabaseManager {
         console.error('Error creating table: ', err);
         return;
       }
-      console.log('Table created or already exists');
+      console.log('Table created or already exists.');
     });
   }
 
