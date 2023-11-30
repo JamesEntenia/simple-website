@@ -99,7 +99,7 @@ app.get('/', (req, res) => {
     res.send(`
       <html>
         <head>
-          <title>Insert and Display Data from RDS</title>
+          <title>Insert and Display Data from RDS.</title>
           <style>
             body {
               font-family: 'Arial', sans-serif;
